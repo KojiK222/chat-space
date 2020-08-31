@@ -2,11 +2,12 @@
   .side-bar
     .user-name
       .top-items
-        .top-items__name kojima
+        .top-items__name
+          = current_user.name
         .top-items__icons
           = link_to "#", class: "icons__edit-btn" do
             = icon('far', 'edit')
-          = link_to "#", class: "icons__cog-btn" do
+          = link_to edit_user_path(current_user), class: "icons__cog-btn" do
             = icon('fas', 'cog')
     .group-list
       .group-info
