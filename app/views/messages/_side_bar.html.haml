@@ -1,18 +1,18 @@
-%body
-  .side-bar
-    .user-name
-      .top-items
-        .top-items__name
-          = current_user.name
-        .top-items__icons
-          = link_to "#", class: "icons__edit-btn" do
-            = icon('far', 'edit')
-          = link_to edit_user_path(current_user), class: "icons__cog-btn" do
-            = icon('fas', 'cog')
-    .group-list
+.side-bar
+  .user-name
+    .top-items
+      .top-items__name
+        = current_user.name
+      .top-items__icons
+        = link_to new_group_path(current_user), class: "icons__edit-btn" do
+          = icon('far', 'edit')
+        = link_to edit_user_path(current_user), class: "icons__cog-btn" do
+          = icon('fas', 'cog')
+  .group-list
+    - current_user.groups.each do |group|
       .group-info
-        .group-info__groupname  techcamp
-        .group-info__messages  まだメッセージがありません
-      .group-info
-        .group-info__groupname  techcamp2
-        .group-info__messages  まだメッセージがありません
+        = link_to edit_group_path(current_user) do
+          .group-info__groupname
+            = group.name
+          .group-info__messages 
+            メッセージはまだありません
