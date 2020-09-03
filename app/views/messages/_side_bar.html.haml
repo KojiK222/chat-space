@@ -11,8 +11,8 @@
   .group-list
     - current_user.groups.each do |group|
       .group-info
-        = link_to edit_group_path(current_user) do
+        = link_to group_messages_path(group) do
           .group-info__groupname
             = group.name
           .group-info__messages 
-            メッセージはまだありません
+            = group.show_last_message
