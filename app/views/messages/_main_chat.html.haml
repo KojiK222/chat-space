@@ -2,32 +2,23 @@
   .chat-main
     .header
       .header__group
-        .groupname techcamp
+        .groupname
+          = @group.name
         %ul.memberlist 
           Member :
-          %li.member 
-          kojima
+          - @group.users.each do |member_name|
+            = member_name.name
       .header__edit
-        = link_to "#", class: "editbtn" do 
+        = link_to edit_group_path(current_user), class: "editbtn" do 
           %p.header__editbtn Edit
     .message-list
       .messagespace
-        .message-info
-          .message-info__username kojima
-          .message-info__date 2020/8/26(wed) 23:29:00
-        .message
-          %p.message__content おはよう！
-      .messagespace
-        .message-info
-          .message-info__username kojima
-          .message-info__date 2020/8/27(thu) 00:20:00
-        .message
-          %p.message__content こんばんは！
+        = render @messages
     .message-form
-      %form.message
+      = form_with model: [@group, @message], html: {class: "Form"}, local: true do |f|
         .message__contents
-          %input{type: "text", class: "input__message", placeholder: "type a message"}
-          %label{class: "input__image"}
-            = icon('fas', 'image', class: "form__icon")
-            %input{type: "file", class: "input__image__file"}
-        %input{type: "submit", class: "submit-btn"}
+          = f.text_field :content, class: 'input__message', placeholder: "type a message"
+          = f.label :image, class: 'input__image' do
+            = icon('far', 'image', class: 'form__icon')
+            = f.file_field :image, class: 'input__image__file'
+        = f.submit 'Send', class: 'submit-btn'
